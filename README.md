@@ -2,26 +2,81 @@
 
 ## 구현 항목
 
-- 
-- 
-- 
-- 
+- Grayscale
+- Brightness
+- contrast
+- threshold
+- Convolution
+- Histogram
+- crop
+- resize
+- flip
 
 ## 실행 명령어 (예시)
 
-<!-- 예시 입니다. 기존 예시를 지우고 구현한 항목에 맞게 명령어를 작성해주세요. -->
 
+## 필터별 실행 예시
+
+### 1. Grayscale (흑백 변환)
 ```powershell
-# Grayscale 변환
-.\x64\Release\ImageProcessor.exe --input .\Resource\1_astronaut.bmp --output .\Resource\1_astronaut_grayscale.bmp --filter grayscale
+.\ImageProcessor.exe -i "C:\test\1_astronaut.bmp" -o "C:\test\grayscale.bmp" -f grayscale
+```
+
+### 2. Brightness / Contrast (밝기 및 대비 조절)
+```powershell
+.\ImageProcessor.exe -i "C:\test\1_astronaut.bmp" -o "C:\test\brightness.bmp" -f brightness:50
 ```
 
 ```powershell
-# Blur 처리 + 임계값 지정
-.\x64\Release\ImageProcessor.exe --input .\Resource\2_coffee.bmp --output .\Resource\2_coffee_blur_threshold.bmp --filter blur --threshold 128
+.\ImageProcessor.exe -i "C:\test\1_astronaut.bmp" -o "C:\test\contrast.bmp" -f contrast:1.5
+```
+
+### 3. Threshold (이진화)
+```powershell
+.\ImageProcessor.exe -i "C:\test\1_astronaut.bmp" -o "C:\test\threshold.bmp" -f threshold:128
+```
+
+### 4. Convolution (컨볼루션)
+```powershell
+.\ImageProcessor.exe -i "C:\test\1_astronaut.bmp" -o "C:\test\blur.bmp" -f blur
 ```
 
 ```powershell
-# 필터 파이프라인 체인(고급)
-.\x64\Release\ImageProcessor.exe --input .\Resource\3_chelsea_cat.bmp --output .\Resource\3_chelsea_cat_pipeline.bmp --pipeline "grayscale, blur, threshold:128"
+.\ImageProcessor.exe -i "C:\test\1_astronaut.bmp" -o "C:\test\sharpen.bmp" -f sharpen
+```
+
+### 5. Histogram (히스토그램 출력)
+```powershell
+.\ImageProcessor.exe -i "C:\test\1_astronaut.bmp" -o "C:\test\histogram.bmp" -f histogram
+```
+
+### 6. Crop / Resize (자르기 및 크기 변경)
+```powershell
+.\ImageProcessor.exe -i "C:\test\1_astronaut.bmp" -o "C:\test\crop.bmp" -f crop:50,50,200,200
+```
+
+```powershell
+.\ImageProcessor.exe -i "C:\test\1_astronaut.bmp" -o "C:\test\resize.bmp" -f resize:256,256
+```
+
+### 7. Flip (이미지 반전)
+```powershell
+.\ImageProcessor.exe -i "C:\test\1_astronaut.bmp" -o "C:\test\flip_horizontal.bmp" -f flip-horizontal
+```
+
+```powershell
+.\ImageProcessor.exe -i "C:\test\1_astronaut.bmp" -o "C:\test\flip_vertical.bmp" -f flip-vertical
+```
+
+
+```powershell
+# 다중필터
+.\ImageProcessor.exe -i "C:\test\input.bmp" -o "C:\test\pipeline.bmp" --pipeline "grayscale,sharpen"
+.\ImageProcessor.exe -i "C:\test\input.bmp" -o "C:\test\crop_resize.bmp" --pipeline "crop:50,50,200,200|resize:256,256"
+```
+
+```powershell
+# 다중스레드
+.\ImageProcessor.exe -i "C:\test\input.bmp" -o "C:\test\gray_1.bmp" -f grayscale:1
+.\ImageProcessor.exe -i "C:\test\input.bmp" -o "C:\test\gray_4.bmp" -f grayscale:4
 ```
